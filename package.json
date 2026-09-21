@@ -1,0 +1,11 @@
+{
+  "name": "resume-ecommerce-platform",
+  "version": "1.0.0",
+  "description": "Resume-backed e-commerce project with product catalog, cart, checkout, inventory, and admin APIs.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node src/data-store.test.js"
+  },
+  "license": "MIT"
+}

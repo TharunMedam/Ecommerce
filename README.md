@@ -25,4 +25,3 @@ Open `http://localhost:4100`.
 The app uses an in-memory store so the project can run anywhere without local database setup. The schema and service layer mirror the normalized product, user, order, inventory, and pricing responsibilities described in the resume.
 
 On Vercel, this is a demo only: sessions, carts, orders, and inventory changes are not durable across function restarts.
-

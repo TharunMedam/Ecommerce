@@ -1,0 +1,12 @@
+region = "ap-south-1"
+name = "anjaneya-store"
+vpc_id = "vpc-REPLACE"
+public_subnet_ids = ["subnet-REPLACE-A", "subnet-REPLACE-B"]
+private_subnet_ids = ["subnet-REPLACE-C", "subnet-REPLACE-D"]
+app_subnet_id = "subnet-REPLACE-C"
+hosted_zone_id = "REPLACE"
+domain = "shop.example.com"
+origin_domain = "origin.shop.example.com"
+origin_certificate_arn = "arn:aws:acm:ap-south-1:ACCOUNT:certificate/REPLACE"
+cloudfront_certificate_arn = "arn:aws:acm:us-east-1:ACCOUNT:certificate/REPLACE"
+alarm_email = "owner@example.com"

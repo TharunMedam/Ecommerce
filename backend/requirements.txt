@@ -1,0 +1,7 @@
+Django>=5.2,<5.3
+djangorestframework>=3.16,<3.17
+mysqlclient>=2.2,<3
+requests>=2.32,<3
+whitenoise>=6.9,<7
+django-storages[s3]>=1.14,<2
+gunicorn>=23,<24; sys_platform != 'win32'

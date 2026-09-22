@@ -1,0 +1,38 @@
+name: Store checks
+on: [push, pull_request]
+jobs:
+  django-mysql:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_DATABASE: anjaneya
+          MYSQL_ROOT_PASSWORD: test-only-ci-password
+        ports: ["3306:3306"]
+        options: --health-cmd="mysqladmin ping -h localhost -ptest-only-ci-password" --health-interval=10s --health-timeout=5s --health-retries=15
+    env:
+      DJANGO_DEBUG: "1"
+      DJANGO_SECRET_KEY: ci-only-not-a-production-secret
+      MYSQL_HOST: 127.0.0.1
+      MYSQL_USER: root
+      MYSQL_PASSWORD: test-only-ci-password
+      MYSQL_DATABASE: anjaneya
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: sudo apt-get update && sudo apt-get install -y default-libmysqlclient-dev pkg-config
+      - run: pip install -r backend/requirements.txt
+      - run: python backend/manage.py test shop
+      - run: python backend/manage.py makemigrations --check --dry-run
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: "22", cache: npm, cache-dependency-path: frontend/package-lock.json}
+      - run: npm ci
+        working-directory: frontend
+      - run: npm run build
+        working-directory: frontend

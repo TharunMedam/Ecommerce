@@ -1,0 +1,29 @@
+services:
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-anjaneya}
+      MYSQL_USER: ${MYSQL_USER:-anjaneya}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+    volumes: ["mysql_data:/var/lib/mysql"]
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p$$MYSQL_ROOT_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+    restart: unless-stopped
+  app:
+    build: ./backend
+    env_file: .env
+    depends_on:
+      db: {condition: service_healthy}
+    restart: unless-stopped
+  web:
+    build: ./frontend
+    ports: ["127.0.0.1:8080:80"]
+    depends_on: [app]
+    restart: unless-stopped
+volumes:
+  mysql_data:

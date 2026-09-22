@@ -1,0 +1,22 @@
+services:
+  app:
+    image: ${BACKEND_IMAGE:?Use an immutable ECR image tag}
+    env_file: /opt/anjaneya/app.env
+    restart: unless-stopped
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: ${AWS_REGION:-ap-south-1}
+        awslogs-group: /anjaneya-store/containers
+        awslogs-stream: backend
+  web:
+    image: ${FRONTEND_IMAGE:?Use an immutable ECR image tag}
+    ports: ["80:80"]
+    depends_on: [app]
+    restart: unless-stopped
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: ${AWS_REGION:-ap-south-1}
+        awslogs-group: /anjaneya-store/containers
+        awslogs-stream: frontend

@@ -1,0 +1,1 @@
+{"name":"anjaneya-storefront","private":true,"version":"1.0.0","type":"module","scripts":{"dev":"vite --host 127.0.0.1","build":"vite build","preview":"vite preview --host 127.0.0.1"},"dependencies":{"lucide-react":"^0.468.0","react":"19.2.4","react-dom":"19.2.4"},"devDependencies":{"@babel/core":"^8.0.6","@babel/plugin-transform-react-jsx":"^8.0.1","vite":"^7.0.0"}}

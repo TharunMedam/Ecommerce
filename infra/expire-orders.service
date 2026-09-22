@@ -1,0 +1,7 @@
+[Unit]
+Description=Release expired Anjaneya payment reservations
+After=docker.service
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/anjaneya
+ExecStart=/usr/bin/docker compose -f compose.aws.yaml exec -T app python manage.py expire_orders
